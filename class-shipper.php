@@ -68,9 +68,9 @@ class HypnoticShipper extends WC_Shipping_Method{
                 'default' => 'yes'
             ),
             'debug' => array(
-                'title' => __('Debug mode', 'woothemes'),
+                'title' => __('Debug mode', 'hypnoticzoo'),
                 'type' => 'checkbox',
-                'label' => __('Enable debug mode', 'woothemes'),
+                'label' => __('Enable debug mode', 'hypnoticzoo'),
                 'default' => 'no'
             ),
             'title' => array(
@@ -80,42 +80,53 @@ class HypnoticShipper extends WC_Shipping_Method{
                 'default' => __($this->carrier, 'hypnoticshipper')
             ),
             'origin' => array(
-                'title' => __('Origin Postcode', 'woothemes'),
+                'title' => __('Origin Postcode', 'hypnoticzoo'),
                 'type' => 'text',
-                'description' => __('Enter your origin post code.', 'woothemes'),
-                'default' => __('', 'woothemes')
+                'description' => __('Enter your origin post code.', 'hypnoticzoo'),
+                'default' => __('', 'hypnoticzoo')
             ),
-            'shipping_availability' => array(
-                'title' => __('Shipping method availability', 'woothemes'),
-                'type' => 'select',
-                'default' => 'all',
-                'class' => 'availability',
-                'options' => array(
-                    'all' => __('All allowed methods', 'woothemes'),
-                    'specific' => __('Specific methods', 'woothemes')
-                )
+            'fee' => array(
+                'title' => __('Handling Fee', 'hypnoticzoo'),
+                'type' => 'text',
+                'description' => __('Fee excluding tax. Enter an amount, e.g. 2.50, or a percentage, e.g. 5%.', 'hypnoticzoo'),
+                'default' => '0'
             ),
-            'shipping_methods' => array(
-                'title' => __('Specific Shipping Methods', 'woothemes'),
+            'fee_to_ship' => array(
+                'title' => __('Apply handling fee to shipping rate.', 'hypnoticzoo'),
+                'type' => 'checkbox',
+                'description' => __('Instead of applying handling fee to product value, apply it to shipping rate.', 'hypnoticzoo'),
+                'default' => ''
+            ),
+            'package_shipping_methods' => array(
+                'title' => __('Shipping Methods For Packages', 'hypnoticzoo'),
                 'type' => 'multiselect',
                 'class' => 'chosen_select',
                 'css' => 'width: 450px;',
+                'description' => 'Leave empty to enable all shipping methods',
                 'default' => '',
-                'options' => $this->shipping_options
-
+                'options' => $this->package_shipping_methods
+            ),
+            'letter_shipping_methods' => array(
+                'title' => __('Shipping Methods For Letters', 'hypnoticzoo'),
+                'type' => 'multiselect',
+                'class' => 'chosen_select',
+                'css' => 'width: 450px;',
+                'description' => 'Leave empty to enable all shipping methods',
+                'default' => '',
+                'options' => $this->letter_shipping_methods
             ),
             'availability' => array(
-                'title' => __('Method availability', 'woothemes'),
+                'title' => __('Method availability', 'hypnoticzoo'),
                 'type' => 'select',
                 'default' => 'all',
                 'class' => 'availability',
                 'options' => array(
-                    'all' => __('All allowed countries', 'woothemes'),
-                    'specific' => __('Specific Countries', 'woothemes')
+                    'all' => __('All allowed countries', 'hypnoticzoo'),
+                    'specific' => __('Specific Countries', 'hypnoticzoo')
                 )
             ),
             'countries' => array(
-                'title' => __('Specific Target Countries', 'woothemes'),
+                'title' => __('Specific Target Countries', 'hypnoticzoo'),
                 'type' => 'multiselect',
                 'class' => 'chosen_select',
                 'css' => 'width: 450px;',
