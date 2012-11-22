@@ -76,6 +76,33 @@ class HypnoticShipper extends WC_Shipping_Method{
         $this->origin_country = $woocommerce->countries->get_base_country();
         $this->currency = get_woocommerce_currency();
 
+        add_action('admin_notices', array(&$this, 'notification'));
+
+    }
+
+    /**
+    * Notification upon condition checks
+    */
+    function notification($issues=array()) {
+
+            $setting_url = 'admin.php?page=woocommerce_settings&tab=shipping&section=' . $this->id;
+            $woocommerce_url = 'admin.php?page=woocommerce_settings&tab=general';
+
+            if (!$this->origin && $this->enabled == 'yes'){
+                $issues[] = 'no origin postcode entered';
+            }
+
+            if (!in_array($this->origin_country, $this->allowed_origin_countries)){
+                $issues[] = 'base country is not correct';
+            }
+
+            if (!in_array($this->currency, $this->allowed_currencies)){
+                $issues[] = 'currency is not accepted';
+            }
+
+            echo '<div class="error"><p>' . sprintf(__($this->carrier . ' is enabled, but %s. 
+                Please update ' . $this->carrier .' settings <a href="%s">here</a> and WooCommerce settings <a href="%s">here</a>.', 'hypnoticzoo'),
+            implode(", ", $issues), admin_url($setting_url), admin_url($woocommerce_url)) . '</p></div>';
     }
 
     /**
