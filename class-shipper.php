@@ -14,6 +14,11 @@
 class HypnoticShipper extends WC_Shipping_Method{
 
     /**
+    * @var string
+    */
+    var $id = '';
+
+    /**
      * @var string
      */
     var $carrier = '';
@@ -69,6 +74,7 @@ class HypnoticShipper extends WC_Shipping_Method{
         }
 
         $this->origin_country = $woocommerce->countries->get_base_country();
+        $this->currency = get_woocommerce_currency();
 
     }
 
@@ -198,10 +204,10 @@ class HypnoticShipper extends WC_Shipping_Method{
         if ($this->enabled == "no")
             return false;
 
-        if (!in_array(get_woocommerce_currency(), $this->allowed_currencies))
+        if (!in_array($this->currency, $this->allowed_currencies))
             return false;
 
-        if (!in_array($woocommerce->countries->get_base_country(), $this->allowed_origin_countries))
+        if (!in_array($this->origin_country, $this->allowed_origin_countries))
             return false;
 
         if (empty($this->letter_shipping_methods) && empty($this->package_shipping_methods))
