@@ -53,6 +53,25 @@ class HypnoticShipper extends WC_Shipping_Method{
     */
     var $settings_order = array();
 
+    function __construct(){
+        global $woocommerce;
+
+        // Load the form fields.
+        $this->init_form_fields();
+        $this->add_form_fields();
+        $this->sort_form_fiels();
+
+        // Load the settings.
+        $this->init_settings();
+
+        foreach($this->settings as $key => $value){
+            $this->$key = $value;
+        }
+
+        $this->origin_country = $woocommerce->countries->get_base_country();
+
+    }
+
     /**
      * Initialise Gateway Settings Form Fields
      */
@@ -137,6 +156,11 @@ class HypnoticShipper extends WC_Shipping_Method{
         );
 
     }
+
+    /**
+    * Add additional form fields
+    */
+    function add_form_fields(){}
 
     /**
     * Sort admin fields for displaying in order
