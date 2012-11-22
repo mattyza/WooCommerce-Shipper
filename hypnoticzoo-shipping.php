@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( class_exists('HipperShipper') ) { // Exit if framework alreay in use.
+if ( ! class_exists('HipperShipper') ) { // Exit if framework alreay in use.
 
 class HipperShipper{
 
@@ -41,7 +41,6 @@ class HipperShipper{
         include( 'class-shipper.php' );     //contains shipping class skeleton
         include( 'class-xmlparser.php' );   //contains xmlparser class
         include( 'product-meta.php' );      //contains extra product meta processors
-        include( 'utilities.php' );         //contains utility functions
     }
 
     function globals() {
@@ -58,6 +57,8 @@ class HipperShipper{
 
     }
 }
+
+$GLOBALS['hippershipper'] = new HipperShipper();
 
 }
 ?>
