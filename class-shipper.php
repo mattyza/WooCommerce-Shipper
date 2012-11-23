@@ -246,6 +246,32 @@ class HypnoticShipper extends WC_Shipping_Method{
 
     }
 
+    /**
+    * Encode request
+    */
+    function encode( $request ) {
+        global $hipperxmlparser;
+
+        try {
+            return $hipperxmlparser->toXML($request);
+        } catch (Exception $e) {
+            $this->add_log( $e->getMessage(), false );
+        }
+    }
+
+    /**
+    * Decode the response to an array
+    */
+    function decode( $response ) {
+        global $hipperxmlparser;
+
+        try {
+            return $hipperxmlparser->toArray($response);
+        } catch (Exception $e) {
+            $this->add_log( $e->getMessage(), false );
+        }
+    }
+
     /************** Help functions *****************/
 
     /**
