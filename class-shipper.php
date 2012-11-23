@@ -246,5 +246,18 @@ class HypnoticShipper extends WC_Shipping_Method{
 
     }
 
+    /************** Help functions *****************/
+
+    /**
+     * Use WooCommerce logger if debug is enabled.
+     */
+    function add_log( $message, $debug_on = true ) {
+        global $woocommerce;
+        if ( $this->debug=='yes' || !$debug_on ) {
+            if ( !$this->log ) $this->log = $woocommerce->logger();
+
+            $this->log->add( $file=$this->id, $message );
+        }
+    }
 }
 ?>
