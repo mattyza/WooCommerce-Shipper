@@ -259,5 +259,17 @@ class HypnoticShipper extends WC_Shipping_Method{
             $this->log->add( $file=$this->id, $message );
         }
     }
+
+    /**
+    * Show response returns when debug is on
+    */
+    function show_response( $response ){
+        global $woocommerce;
+        if ( $this->debug == 'yes' ) {
+                $woocommerce->clear_messages();
+                $woocommerce->add_message('<p>'. $this->carrier .' Response:</p><ul><li>' . implode('</li><li>', $response) . '</li></ul>');
+        }
+    }
+
 }
 ?>
