@@ -100,9 +100,11 @@ class HypnoticShipper extends WC_Shipping_Method{
                 $issues[] = 'currency is not accepted';
             }
 
-            echo '<div class="error"><p>' . sprintf(__($this->carrier . ' is enabled, but %s. 
+            if (!empty($issues)){
+                echo '<div class="error"><p>' . sprintf(__($this->carrier . ' is enabled, but %s. 
                 Please update ' . $this->carrier .' settings <a href="%s">here</a> and WooCommerce settings <a href="%s">here</a>.', 'hypnoticzoo'),
             implode(", ", $issues), admin_url($setting_url), admin_url($woocommerce_url)) . '</p></div>';
+            }
     }
 
     /**
