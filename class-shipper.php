@@ -300,10 +300,6 @@ class HypnoticShipper extends WC_Shipping_Method{
      * Shipping method available conditions
      */
     function is_available() {
-        global $woocommerce;
-
-        if ($this->enabled == "no")
-            return false;
 
         if (!in_array($this->currency, $this->allowed_currencies))
             return false;
@@ -314,7 +310,9 @@ class HypnoticShipper extends WC_Shipping_Method{
         if (empty($this->letter_shipping_methods) && empty($this->package_shipping_methods))
             return false;
 
-        return true;
+        return parent::is_available();
+
+    }
 
     }
 
