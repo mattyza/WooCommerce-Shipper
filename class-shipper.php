@@ -26,6 +26,21 @@ class HypnoticShipper extends WC_Shipping_Method{
     /**
      * @var string
      */
+    var $dimension_unit = 'in';
+
+    /**
+     * @var string
+     */
+    var $weight_unit = 'lbs';
+
+    /**
+     * @var string
+     */
+    var $description = '';
+
+    /**
+     * @var string
+     */
     var $endpoint = '';
 
     /**
