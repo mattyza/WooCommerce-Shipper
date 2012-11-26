@@ -85,9 +85,10 @@ class HypnoticShipper extends WC_Shipping_Method{
         $this->init_settings();
 
         foreach($this->settings as $key => $value){
-            $this->$key = $value;
+            if(array_key_exists($key, $this->form_fields)) $this->$key = $value;
         }
 
+        $this->shipping_methods = array_merge($this->package_shipping_methods, $this->letter_shipping_methods);
         $this->origin_country = $woocommerce->countries->get_base_country();
         $this->currency = get_woocommerce_currency();
 
