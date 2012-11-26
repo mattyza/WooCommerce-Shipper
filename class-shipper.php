@@ -92,6 +92,8 @@ class HypnoticShipper extends WC_Shipping_Method{
         $this->origin_country = $woocommerce->countries->get_base_country();
         $this->currency = get_woocommerce_currency();
 
+        $this->custombox_form_fields();
+
         add_action('admin_notices', array(&$this, 'notification'));
 
     }
@@ -314,6 +316,72 @@ class HypnoticShipper extends WC_Shipping_Method{
 
     }
 
+    /**
+    * Encode request
+    */
+    function encode( $request ) {
+        global $hipperxmlparser;
+
+        try {
+            return $hipperxmlparser->toXML($request);
+        } catch (Exception $e) {
+            $this->add_log( $e->getMessage(), false );
+        }
+    }
+
+    /**
+    * Decode the response to an array
+    */
+    function decode( $response ) {
+        global $hipperxmlparser;
+
+        try {
+            return $hipperxmlparser->toArray($response);
+        } catch (Exception $e) {
+            $this->add_log( $e->getMessage(), false );
+        }
+    }
+
+    /**
+    * Prepare packages, split or not
+    */
+    function prepare_packages(){
+
+    }
+
+    /**
+     * Admin Panel Options
+     */
+    public function admin_options() {
+        ?>
+        <style>
+            table.form-table { clear: none; float: left; }
+            table.wide { width: 650px; }
+            table.narrow { width: 500px; border: thin solid #DFDFDF; }
+            
+        </style>
+        <h3><?php _e($this->carrier, 'hypnoticzoo'); ?></h3>
+        <p><?php _e($this->description, 'hypnoticzoo'); ?></p>
+        <table class="form-table wide">
+
+            <?php
+            // Generate the HTML For the settings form.
+            $this->generate_settings_html();
+            ?>
+
+        </table><!--/.form-table-->
+
+        <table class="form-table narrow">
+
+            <?php
+            // Generate the HTML for boxes settings
+            $this->generate_box_settings_html();
+            ?>
+
+        </table><!--/.form-table-->
+        <div class="clear"></div>
+        <?php
+    }
 
     /************** Help functions *****************/
 
