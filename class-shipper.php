@@ -124,6 +124,58 @@ class HypnoticShipper extends WC_Shipping_Method{
     }
 
     /**
+    * Fields for custom box
+    */
+    function custombox_form_fields() {
+        $this->box_form_fields = array(
+            'label' => array(
+                'title' => __('Label', 'hypnoticshipper'),
+                'type' => 'text',
+                'description' => __('Label your box for easier management.', 'hypnoticshipper'),
+            ),
+            'width' => array(
+                'title' => __('Width', 'hypnoticshipper'),
+                'type' => 'text',
+                'description' => __('in ' . strtoupper($this->dimension_unit), 'hypnoticshipper'),
+                'css' => 'width: 5em;'
+            ),
+            'length' => array(
+                'title' => __('Length', 'hypnoticshipper'),
+                'type' => 'text',
+                'description' => __('in ' . strtoupper($this->dimension_unit), 'hypnoticshipper'),
+                'css' => 'width: 5em;'
+            ),
+            'height' => array(
+                'title' => __('Height', 'hypnoticshipper'),
+                'type' => 'text',
+                'description' => __('in ' . strtoupper($this->dimension_unit), 'hypnoticshipper'),
+                'css' => 'width: 5em;'
+            ),
+            'max_weight'  => array(
+                'title' => __('Max weight can hold', 'hypnoticshipper'),
+                'type' => 'text',
+                'description' => __('in ' . strtoupper($this->weight_unit), 'hypnoticshipper'),
+                'css' => 'width: 5em;'
+            ),
+            'max_unit'  => array(
+                'title' => __('Max units can hold', 'hypnoticshipper'),
+                'type' => 'text',
+                'description' => __('The maxiumum number', 'hypnoticshipper'),
+                'css' => 'width: 5em;'
+            ),
+            'target_methods' => array(
+                'title' => __('Target Methods', 'hypnoticzoo'),
+                'type' => 'multiselect',
+                'class' => 'chosen_select',
+                'css' => 'width: 25em;',
+                'description' => 'Leave empty to allow used by all shipping methods',
+                'default' => '',
+                'options' => $this->shipping_methods
+            ),
+        );
+    }
+
+    /**
      * Initialise Gateway Settings Form Fields
      */
     function init_form_fields() {
