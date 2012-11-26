@@ -314,6 +314,48 @@ class HypnoticShipper extends WC_Shipping_Method{
 
     }
 
+
+    /************** Help functions *****************/
+
+    function generate_box_settings_html( $form_fields = false ) {
+        $short_fields = array('width', 'height', 'length', 'max_weight', 'max_unit');
+
+        if ( ! $form_fields )
+            $form_fields = $this->box_form_fields;
+
+        $html = '';
+        foreach ( $form_fields as $k => $v ) {
+            if ( ! isset( $v['type'] ) || ( $v['type'] == '' ) ) { $v['type'] == 'text'; } // Default to "text" field type.
+
+            if ( method_exists( $this, 'generate_' . $v['type'] . '_html' ) ) {
+                $html .= $this->{'generate_' . $v['type'] . '_html'}( $k, $v );
+            }
+        }
+
+        echo $html;
+    }
+
+    /**
+     * Use WooCommerce logger if debug is enabled.
+     */
+    function add_log( $message, $debug_on = true ) {
+        global $woocommerce;
+        if ( $this->debug=='yes' || !$debug_on ) {
+            if ( !$this->log ) $this->log = $woocommerce->logger();
+
+            $this->log->add( $file=$this->id, $message );
+        }
+    }
+
+    /**
+    * Show response returns when debug is on
+    */
+    function show_response( $response ){
+        global $woocommerce;
+        if ( $this->debug == 'yes' ) {
+                $woocommerce->clear_messages();
+                $woocommerce->add_message('<p>'. $this->carrier .' Response:</p><ul><li>' . implode('</li><li>', $response) . '</li></ul>');
+        }
     }
 
 }
