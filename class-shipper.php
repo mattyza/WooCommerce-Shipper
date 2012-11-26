@@ -219,20 +219,20 @@ class HypnoticShipper extends WC_Shipping_Method{
                 'description' => __('Instead of applying handling fee to product value, apply it to shipping rate.', 'hypnoticzoo'),
                 'default' => ''
             ),
-            'package_shipping_methods' => array(
+            'package_methods' => array(
                 'title' => __('Shipping Methods For Packages', 'hypnoticzoo'),
                 'type' => 'multiselect',
                 'class' => 'chosen_select',
-                'css' => 'width: 450px;',
+                'css' => 'width: 25em;',
                 'description' => 'Leave empty to enable all shipping methods',
                 'default' => '',
                 'options' => $this->package_shipping_methods
             ),
-            'letter_shipping_methods' => array(
+            'letter_methods' => array(
                 'title' => __('Shipping Methods For Letters', 'hypnoticzoo'),
                 'type' => 'multiselect',
                 'class' => 'chosen_select',
-                'css' => 'width: 450px;',
+                'css' => 'width: 25em;',
                 'description' => 'Leave empty to enable all shipping methods',
                 'default' => '',
                 'options' => $this->letter_shipping_methods
@@ -251,12 +251,16 @@ class HypnoticShipper extends WC_Shipping_Method{
                 'title' => __('Specific Target Countries', 'hypnoticzoo'),
                 'type' => 'multiselect',
                 'class' => 'chosen_select',
-                'css' => 'width: 450px;',
+                'css' => 'width: 25em;',
                 'default' => '',
                 'options' => $woocommerce->countries->countries
             ),
 
         );
+
+        if ( empty($this->letter_shipping_methods) ) {
+            unset($this->form_fields['letter_shipping_methods']);
+        }
 
     }
 
